@@ -8,8 +8,8 @@ Suporte para WASD e setas
 Sistema de colisão com paredes
 Sprites de movimento e idle
 Controle da última direção do personagem
-📚 Objetivo
 
+📚 Objetivo
 Projeto criado para praticar:
 
 Lógica de programação
