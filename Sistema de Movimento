@@ -1,84 +1,99 @@
-var _direita_wasd = keyboard_check(ord("D"));
-var _esquerda_wasd = keyboard_check(ord("A"));
-var _cima_wasd = keyboard_check(ord("W"));
-var _baixo_wasd = keyboard_check(ord("S"));
+// Controles WASD
+var mover_direita_wasd = keyboard_check(ord("D"));
+var mover_esquerda_wasd = keyboard_check(ord("A"));
+var mover_cima_wasd = keyboard_check(ord("W"));
+var mover_baixo_wasd = keyboard_check(ord("S"));
 
-var _direita_seta = keyboard_check(vk_right);
-var _esquerda_seta = keyboard_check(vk_left);
-var _cima_seta = keyboard_check(vk_up);
-var _baixo_seta = keyboard_check(vk_down);
+// Controles pelas setas
+var mover_direita_seta = keyboard_check(vk_right);
+var mover_esquerda_seta = keyboard_check(vk_left);
+var mover_cima_seta = keyboard_check(vk_up);
+var mover_baixo_seta = keyboard_check(vk_down);
 
-var _direita = _direita_wasd || _direita_seta;
-var _esquerda = _esquerda_wasd || _esquerda_seta;
-var _cima = _cima_wasd || _cima_seta;
-var _baixo = _baixo_wasd || _baixo_seta;
+// Junta os controles
+var mover_direita = mover_direita_wasd || mover_direita_seta;
+var mover_esquerda = mover_esquerda_wasd || mover_esquerda_seta;
+var mover_cima = mover_cima_wasd || mover_cima_seta;
+var mover_baixo = mover_baixo_wasd || mover_baixo_seta;
 
-var _parado = !(_direita || _esquerda || _cima || _baixo);
+// Verifica se o jogador está parado
+var jogador_parado = !(mover_direita || mover_esquerda || mover_cima || mover_baixo);
 
-// Movimentação com verificação precisa de colisões
-if (_direita) {
-    if (!place_meeting(x + vel, y, obj_colisor)) {
-        x += vel;
+// Movimento para direita
+if (mover_direita) {
+    if (!place_meeting(x + velocidade, y, obj_parede)) {
+        x += velocidade;
     } else {
-        // Ajusta movimento incremental para evitar travamento
-        while (!place_meeting(x + 1, y, obj_colisor)) {
+        while (!place_meeting(x + 1, y, obj_parede)) {
             x += 1;
         }
     }
-    sprite_index = Spr_player_movendo_direita;
+
+    sprite_index = spr_player_direita;
     ultima_direcao = "direita";
 }
 
-if (_esquerda) {
-    if (!place_meeting(x - vel, y, obj_colisor)) {
-        x -= vel;
+// Movimento para esquerda
+if (mover_esquerda) {
+    if (!place_meeting(x - velocidade, y, obj_parede)) {
+        x -= velocidade;
     } else {
-        while (!place_meeting(x - 1, y, obj_colisor)) {
+        while (!place_meeting(x - 1, y, obj_parede)) {
             x -= 1;
         }
     }
-    sprite_index = Spr_player_movendo_esquerda;
+
+    sprite_index = spr_player_esquerda;
     ultima_direcao = "esquerda";
 }
 
-if (_cima) {
-    if (!place_meeting(x, y - vel, obj_colisor)) {
-        y -= vel;
+// Movimento para cima
+if (mover_cima) {
+    if (!place_meeting(x, y - velocidade, obj_parede)) {
+        y -= velocidade;
     } else {
-        while (!place_meeting(x, y - 1, obj_colisor)) {
+        while (!place_meeting(x, y - 1, obj_parede)) {
             y -= 1;
         }
     }
-    sprite_index = Spr_player_movendo_cima;
+
+    sprite_index = spr_player_cima;
     ultima_direcao = "cima";
 }
 
-if (_baixo) {
-    if (!place_meeting(x, y + vel, obj_colisor)) {
-        y += vel;
+// Movimento para baixo
+if (mover_baixo) {
+    if (!place_meeting(x, y + velocidade, obj_parede)) {
+        y += velocidade;
     } else {
-        while (!place_meeting(x, y + 1, obj_colisor)) {
+        while (!place_meeting(x, y + 1, obj_parede)) {
             y += 1;
         }
     }
-    sprite_index = Spr_player_movendo_baixo;
+
+    sprite_index = spr_player_baixo;
     ultima_direcao = "baixo";
 }
 
-// Quando o jogador parar, usa a sprite da última direção
-if (_parado) {
+// Sprite parado
+if (jogador_parado) {
+
     switch (ultima_direcao) {
+
         case "direita":
-            sprite_index = Spr_player_parado_direita;
-            break;
+            sprite_index = spr_player_parado_direita;
+        break;
+
         case "esquerda":
-            sprite_index = Spr_player_parado_esquerda;
-            break;
+            sprite_index = spr_player_parado_esquerda;
+        break;
+
         case "cima":
-            sprite_index = Spr_player_parado_cima;
-            break;
+            sprite_index = spr_player_parado_cima;
+        break;
+
         case "baixo":
-            sprite_index = Spr_player_parado_baixo;
-            break;
+            sprite_index = spr_player_parado_baixo;
+        break;
     }
 }
