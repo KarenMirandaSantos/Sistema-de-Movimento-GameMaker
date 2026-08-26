@@ -16,6 +16,7 @@ Lógica de programação
 Movimentação 2D
 Colisões
 Controle de animações no GameMaker
+
 🛠️ Tecnologias
 GameMaker Studio
 GML (GameMaker Language)
